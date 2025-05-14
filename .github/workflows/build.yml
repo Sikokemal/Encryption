@@ -20,14 +20,16 @@ jobs:
       uses: NuGet/setup-nuget@v1
 
     - name: Restore NuGet packages
-      run: nuget restore Encryption.sln
+      run: nuget restore TEXT.sln  # Замените MyApp.sln на имя вашего .sln файла
 
     - name: Build solution
-      run: msbuild Encryption.sln /p:Configuration=Release
+      run: msbuild TEXT.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+    - name: List build output
+      run: dir /s /b
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: winforms-exe
-        path: |
-          **\bin\Release\*.exe
+        path: '**/bin/Release/*.exe'
